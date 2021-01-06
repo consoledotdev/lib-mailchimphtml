@@ -6,6 +6,12 @@ generate the HTML for copying into Mailchimp.
 
 Documentation within the code.
 
+## Open development
+
+This repository is public, but is not currently open source. We have opened the
+repo to give a view into how we run [Console](https://console.dev) rather than
+for it to be independent, release-quality code.
+
 ## Local development
 
 This script is [bound](https://developers.google.com/apps-script/guides/bound)
