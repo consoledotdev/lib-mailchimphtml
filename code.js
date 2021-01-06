@@ -1,26 +1,34 @@
 /**
  * Mailchimp HTML Apps Script Library
  *
- * A Google Apps Script Library to generate the HTML for MailChimp. Assumes
- * mc-template.html exists in the calling script.
+ * A Google Apps Script Library to generate the HTML for MailChimp.
  *
  * Called from within the template file. Example:
  *
- * `<? var data = getData('All Tools!A2:K31', 3); ?>`
+ * `<? var data = getData('All Tools!A2:K31'); ?>`
  *
- * where `All Tools!A2:K31` defines the Sheet name and range and `3` is the
- * index of the column that contains the scheduled for date.
+ * where `All Tools!A2:K31` defines the Sheet name with a header column
+ * named "Scheduled for". Specify the optional second parameter if that field
+ * name is different.
  *
  */
 
-function getData(range, scheduledForIndex) {
+function getData(range, scheduledForField = "Scheduled for") {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   // https://developers.google.com/apps-script/reference/spreadsheet/sheet#getrangea1notation
   var range = spreadsheet.getRange(range);
   var values = range.getValues();
 
   var newsletterDate = getNextThurs(true);
-  var betaPrograms = [];
+  var data = [];
+
+  // Get the index for the field we want
+  // Assumes the first row is a header row
+  for (const [key, value] of Object.entries(values[0])) {
+      if (value == scheduledForField) {
+          var scheduledForIndex = key;
+      }
+  }
 
   for (var row in values) {
     var scheduledFor = new Date(values[row][scheduledForIndex]);
@@ -30,11 +38,11 @@ function getData(range, scheduledForIndex) {
         && scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth()
         && scheduledFor.getUTCDate() == newsletterDate.getUTCDate()) {
           Logger.log('Selecting: ' + values[row]);
-          betaPrograms.push(values[row])
+          data.push(values[row])
     }
   }
 
-  return betaPrograms;
+  return data;
 }
 
 function getNextThurs(asDate = false) {

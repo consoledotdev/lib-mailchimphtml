@@ -24,3 +24,10 @@ within the sheet but using `clasp` is preferred.
 ## Debugging
 
 Check the live [Apps Script dashboard](https://script.google.com/home/all).
+
+## Publishing a new version
+
+1. `gclasp push 1UNp-1nYZjDs8BUqkYBzHSVpPg0oKkZ87H8-_yIAbGwA26rLG9nAH21GT`
+2. Load [the web editor](https://script.google.com/a/console.dev/d/1UNp-1nYZjDs8BUqkYBzHSVpPg0oKkZ87H8-_yIAbGwA26rLG9nAH21GT/edit).
+3. File > Manage versions > Save new version
+4. Update any scripts that use this as a dependancy.
