@@ -45,20 +45,21 @@ function getData(range, scheduledForField = "Scheduled for") {
         if (scheduledFor.getUTCFullYear() == newsletterDate.getUTCFullYear()
             && scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth()
             && scheduledFor.getUTCDate() == newsletterDate.getUTCDate()) {
-              Logger.log('Selecting: ' + values[row]);
 
-              // Create dictionary with keys as column headers
-              keyedRow = {};
-              for (const [key, value] of Object.entries(values[row])) {
-                  var rowKey = values[0][key];
-                  var rowValue = value;
+            Logger.log('Selecting: ' + values[row]);
 
-                  Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
-                  keyedRow[values[0][key]] = value;
-              }
-              Logger.log('Pushing: ' + keyedRow);
+            // Create dictionary with keys as column headers
+            keyedRow = {};
+            for (const [key, value] of Object.entries(values[row])) {
+                var rowKey = values[0][key];
+                var rowValue = value;
 
-              data.push(keyedRow)
+                Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
+                keyedRow[values[0][key]] = value;
+            }
+            Logger.log('Pushing: ' + keyedRow);
+
+            data.push(keyedRow)
         }
     }
 
