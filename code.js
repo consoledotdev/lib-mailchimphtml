@@ -55,15 +55,20 @@ function getData(range, scheduledForField = "Scheduled for") {
                 var rowValue = value;
 
                 Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
-                keyedRow[values[0][key]] = value;
+                keyedRow[rowKey] = value;
             }
 
             // Append ?ref=console.dev to the URL so the site owner knows
             // referrals came from Console. Important when clicks are from an
             // email which will otherwise have no referrer.
-            var url = new URL(keyedRow['URL']);
-            url.searchParams.set('ref', 'console.dev');
-            keyedRow['URL'] = url.toString();
+            // Unfortunately Google Apps Script does not support URL or
+            // URLSearchParams interfaces :(
+            Logger.log('Processing URL: ' + keyedRow['URL']);
+            var url = keyedRow['URL'];
+            var separator = url.indexOf('?') > -1 ? '&' : '?';
+            url += separator + encodeURIComponent('ref')
+                + '=' + encodeURIComponent('console.dev');
+            keyedRow['URL'] = url
             Logger.log('Set URL: ' + url.toString());
 
             Logger.log('Pushing: ' + keyedRow);
