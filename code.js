@@ -57,8 +57,16 @@ function getData(range, scheduledForField = "Scheduled for") {
                 Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
                 keyedRow[values[0][key]] = value;
             }
-            Logger.log('Pushing: ' + keyedRow);
 
+            // Append ?ref=console.dev to the URL so the site owner knows
+            // referrals came from Console. Important when clicks are from an
+            // email which will otherwise have no referrer.
+            var url = new URL(keyedRow['URL']);
+            url.searchParams.set('ref', 'console.dev');
+            keyedRow['URL'] = url.toString();
+            Logger.log('Set URL: ' + url.toString());
+
+            Logger.log('Pushing: ' + keyedRow);
             data.push(keyedRow)
         }
     }
