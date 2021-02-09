@@ -123,4 +123,5 @@ dmypy.json
 .pyre/
 
 .DS_Store
-.git/
+.git/**
+node_modules/**

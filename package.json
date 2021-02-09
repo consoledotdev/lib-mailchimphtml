@@ -1,0 +1,11 @@
+{
+    "name": "lib-mailchimphtml",
+    "author": "David Mytton <david@davidmytton.co.uk>",
+    "description": "A Google Apps Script library to generate the HTML for copying into Mailchimp..",
+    "license": "None",
+    "repository": "github:consoledotdev/lib-mailchimphtml",
+    "version": "0.1.0",
+    "dependencies": {
+        "urijs": "1.19.5"
+    }
+}

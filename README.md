@@ -26,7 +26,9 @@ within the sheet but using `clasp` is preferred.
 
 `gclasp clone 1UNp-1nYZjDs8BUqkYBzHSVpPg0oKkZ87H8-_yIAbGwA26rLG9nAH21GT`
 
-3. Push any changes up to the live version: `clasp push` or have it watch for
+4. `npm install`
+5. `cp node_modules/urijs/src/URI.js .`
+6. Push any changes up to the live version: `clasp push` or have it watch for
    changes with `clasp push --watch`.
 
 ## Debugging

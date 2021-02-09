@@ -61,13 +61,13 @@ function getData(range, scheduledForField = "Scheduled for") {
             // Append ?ref=console.dev to the URL so the site owner knows
             // referrals came from Console. Important when clicks are from an
             // email which will otherwise have no referrer.
+            //
             // Unfortunately Google Apps Script does not support URL or
-            // URLSearchParams interfaces :(
+            // URLSearchParams interfaces so we have to use URI.js
+            // https://github.com/medialize/URI.js
             Logger.log('Processing URL: ' + keyedRow['URL']);
-            var url = keyedRow['URL'];
-            var separator = url.indexOf('?') > -1 ? '&' : '?';
-            url += separator + encodeURIComponent('ref')
-                + '=' + encodeURIComponent('console.dev');
+            var url = URI(keyedRow['URL']);
+            url.addSearch('ref', 'console.dev');
             keyedRow['URL'] = url
             Logger.log('Set URL: ' + url.toString());
 
