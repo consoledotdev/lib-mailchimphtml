@@ -11,6 +11,9 @@
  * named "Scheduled for". Specify the optional second parameter if that field
  * name is different.
  *
+ * Returns an array of rows that are selected for publication. Key names are the
+ * header columns.
+ *
  */
 
 function getData(range, scheduledForField = "Scheduled for") {
@@ -22,7 +25,7 @@ function getData(range, scheduledForField = "Scheduled for") {
     var newsletterDate = getNextThurs(true);
     var data = [];
 
-    // Get the index for the field we want
+    // Get the index for the "Scheduled for field"
     // Assumes the first row is a header row
     for (const [key, value] of Object.entries(values[0])) {
         if (value == scheduledForField) {
@@ -30,15 +33,32 @@ function getData(range, scheduledForField = "Scheduled for") {
         }
     }
 
+    // Loop through every row returned.
+    // Only process the rows which are scheduled for next Thursday.
+    // Create a new dictionary where the keys are the text column names.
+    // Then push that dictionary to the data array for iteration in the
+    // template.
     for (var row in values) {
         var scheduledFor = new Date(values[row][scheduledForIndex]);
 
-        // Only show the ones scheduled for the next newsletter
+        // Only process the ones scheduled for the next newsletter
         if (scheduledFor.getUTCFullYear() == newsletterDate.getUTCFullYear()
             && scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth()
             && scheduledFor.getUTCDate() == newsletterDate.getUTCDate()) {
-                Logger.log('Selecting: ' + values[row]);
-                data.push(values[row])
+              Logger.log('Selecting: ' + values[row]);
+
+              // Create dictionary with keys as column headers
+              keyedRow = {};
+              for (const [key, value] of Object.entries(values[row])) {
+                  var rowKey = values[0][key];
+                  var rowValue = value;
+
+                  Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
+                  keyedRow[values[0][key]] = value;
+              }
+              Logger.log('Pushing: ' + keyedRow);
+
+              data.push(keyedRow)
         }
     }
 
