@@ -42,11 +42,12 @@ function getData(range, scheduledForField = "Scheduled for") {
         var scheduledFor = new Date(values[row][scheduledForIndex]);
 
         // Only process the ones scheduled for the next newsletter
-        if (scheduledFor.getUTCFullYear() == newsletterDate.getUTCFullYear()
-            && scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth()
-            && scheduledFor.getUTCDate() == newsletterDate.getUTCDate()) {
-
-            Logger.log('Selecting: ' + values[row]);
+        if (
+            scheduledFor.getUTCFullYear() == newsletterDate.getUTCFullYear() &&
+            scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth() &&
+            scheduledFor.getUTCDate() == newsletterDate.getUTCDate()
+        ) {
+            Logger.log("Selecting: " + values[row]);
 
             // Create dictionary with keys as column headers
             keyedRow = {};
@@ -54,7 +55,9 @@ function getData(range, scheduledForField = "Scheduled for") {
                 var rowKey = values[0][key];
                 var rowValue = value;
 
-                Logger.log('Row ' + row + ': k = ' + rowKey + ' ; v = ' + rowValue);
+                Logger.log(
+                    "Row " + row + ": k = " + rowKey + " ; v = " + rowValue
+                );
                 keyedRow[rowKey] = value;
             }
 
@@ -65,14 +68,14 @@ function getData(range, scheduledForField = "Scheduled for") {
             // Unfortunately Google Apps Script does not support URL or
             // URLSearchParams interfaces so we have to use URI.js
             // https://github.com/medialize/URI.js
-            Logger.log('Processing URL: ' + keyedRow['URL']);
-            var url = URI(keyedRow['URL']);
-            url.addSearch('ref', 'console.dev');
-            keyedRow['URL'] = url
-            Logger.log('Set URL: ' + url.toString());
+            Logger.log("Processing URL: " + keyedRow["URL"]);
+            var url = URI(keyedRow["URL"]);
+            url.addSearch("ref", "console.dev");
+            keyedRow["URL"] = url;
+            Logger.log("Set URL: " + url.toString());
 
-            Logger.log('Pushing: ' + keyedRow);
-            data.push(keyedRow)
+            Logger.log("Pushing: " + keyedRow);
+            data.push(keyedRow);
         }
     }
 
@@ -86,16 +89,18 @@ function getNextThurs(asDate = false) {
     // https://stackoverflow.com/a/1579109
     var thursday = 4; // Thursday
     var now = new Date();
-    resultDate.setDate(now.getDate() + (thursday + (7 - now.getDay())) % 7);
+    resultDate.setDate(now.getDate() + ((thursday + (7 - now.getDay())) % 7));
 
     if (asDate) {
         return resultDate;
     } else {
         // To add leading zeros: https://stackoverflow.com/a/1579109
-        return resultDate.getFullYear()
-        + '-'
-        + ('0' + (resultDate.getMonth() + 1)).slice(-2)
-        + '-'
-        + ('0' + resultDate.getDate()).slice(-2);
+        return (
+            resultDate.getFullYear() +
+            "-" +
+            ("0" + (resultDate.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + resultDate.getDate()).slice(-2)
+        );
     }
 }
