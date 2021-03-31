@@ -43,9 +43,9 @@ function getData(range, scheduledForField = "Scheduled for") {
 
         // Only process the ones scheduled for the next newsletter
         if (
-            scheduledFor.getUTCFullYear() == newsletterDate.getUTCFullYear() &&
-            scheduledFor.getUTCMonth() == newsletterDate.getUTCMonth() &&
-            scheduledFor.getUTCDate() == newsletterDate.getUTCDate()
+            scheduledFor.getFullYear() == newsletterDate.getFullYear() &&
+            scheduledFor.getMonth() == newsletterDate.getMonth() &&
+            scheduledFor.getDate() == newsletterDate.getDate()
         ) {
             Logger.log("Selecting: " + values[row]);
 
