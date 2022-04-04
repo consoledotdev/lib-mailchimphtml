@@ -6,7 +6,7 @@
     "repository": "github:consoledotdev/lib-mailchimphtml",
     "version": "0.1.0",
     "dependencies": {
-        "urijs": "1.19.10"
+        "urijs": "1.19.11"
     },
     "devDependencies": {
         "prettier": "2.6.2"
